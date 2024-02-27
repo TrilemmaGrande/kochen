@@ -1,7 +1,7 @@
 @props(['recipe'])
 
 <a href="/recipes/{{$recipe['id']}}">
-    <img class="recipe-image" src="{{asset("images/no-image.svg")}}" alt="">
+    <img class="recipe-picture" src="{{$recipe->picture ? asset('storage/' . $recipe->picture) : asset('images/no-image.svg')}}" alt="">
 <h2>
    {{$recipe['title']}}  
 </h2>

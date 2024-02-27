@@ -10,4 +10,7 @@
 @foreach($recipes as $recipe)
 <x-recipe-card :recipe="$recipe"/>
 @endforeach
+<div class="pagination">
+{{$recipes->links()}}
+</div>
 @endsection
