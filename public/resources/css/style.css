@@ -1,0 +1,12 @@
+body {
+    background-image: url('../../images/background.jpg');
+    height: 100%;
+}
+
+.logo {
+    width: 10rem;
+}
+
+.recipe-image {
+    width: 10rem;
+}

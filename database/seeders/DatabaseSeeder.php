@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Receipt;
+use App\Models\Recipe;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory(5)->create();
 
-        Receipt::factory(10)->create();
+        Recipe::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

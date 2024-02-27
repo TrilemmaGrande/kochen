@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Receipt;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RecipeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,15 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('receipts', [
-        'heading' => 'Neueste Rezepte',
-        'receipts' => Receipt::all()
-    ]);
-});
+Route::get('/', [RecipeController::class, 'index']);
 
-Route::get('/receipts/{id}', function ($id) {
-    return view('receipt', [
-        'receipt' => Receipt::find($id)
-    ]);
-});
+Route::get('/recipes/{recipe}',  [RecipeController::class, 'show']);
