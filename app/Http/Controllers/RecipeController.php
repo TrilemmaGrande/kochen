@@ -13,7 +13,7 @@ class RecipeController extends Controller
     {
         return view('recipes.index', [
             'heading' => 'Neueste Rezepte',
-            'recipes' => Recipe::latest()->filter(request(['tag', 'search']))->simplePaginate(6)
+            'recipes' => Recipe::latest('recipes.created_at')->filter(request(['tag', 'search']))->simplePaginate(10)
         ]);
     }
 

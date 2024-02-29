@@ -19,19 +19,29 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        $recipes = Recipe::factory(10)->create();
+        $tagCount = 10;
+        $ingredientCount = 20;
+        $recipeCount = 20;
 
-        foreach ($recipes as $recipe) {
-            $ingredients = Ingredient::factory(5)->create();
 
-            foreach ($ingredients as $ingredient) {
+        for ($i = 0; $i < $tagCount; $i++) {
+            Tag::factory()->create();
+        }
+        for ($i = 0; $i < $ingredientCount; $i++) {
+            Ingredient::factory()->create();
+        }
+        for ($i = 0; $i < $recipeCount; $i++) {
+            $recipe = Recipe::factory()->create();
+   
+            // Füge Tags hinzu
+            $tagIds = Tag::inRandomOrder()->limit(5)->pluck('id')->toArray();
+            $recipe->tags()->attach($tagIds);
+            // Füge Ingredients hinzu           
+            $ingredientIds = Ingredient::inRandomOrder()->limit(7)->pluck('id')->toArray();
+            foreach ($ingredientIds as $ingredient) {
                 $pivotAttributes = RecipeIngredient::factory()->make()->toArray();
-
                 $recipe->ingredients()->attach($ingredient, $pivotAttributes);
             }
-
-            $tags = Tag::factory(3)->create();
-            $recipe->tags()->attach($tags);
         }
     }
 }
