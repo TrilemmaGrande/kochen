@@ -18,7 +18,7 @@
     <p>Feld erforderlich!</p>
     @enderror
     <label for="tags">Tags (getrennt mit Kommata)</label>
-    <input type="text" name="tags" id="" placeholder="z.B. fleisch, schnell, einfach" value="{{$recipe->tags}}">
+    <input type="text" name="tags" id="" placeholder="z.B. fleisch, schnell, einfach" value="{{$recipe->tags->pluck('name')->implode(', ')}}">
     @error('tags')
     <p>Feld erforderlich!</p>
     @enderror
