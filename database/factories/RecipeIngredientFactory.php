@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Recipe>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RecipeIngredient>
  */
-class RecipeFactory extends Factory
+class RecipeIngredientFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +18,8 @@ class RecipeFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(),
-            'description' => $this->faker->paragraph(5),
-            'preparation' => $this->faker->text()
+            'unit_id' => Unit::factory(),
+            'quantity' => $this->faker->randomFloat(2, 1, 100),
         ];
     }
 }

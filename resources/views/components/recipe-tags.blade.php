@@ -1,13 +1,9 @@
-@props(['tagsCsv'])
-
-@php
-    $tags = explode(',', $tagsCsv);
-@endphp
+@props(['tags'])
 
 <ul>
     @foreach ($tags as $tag)
     <li>
-        <a href="/?tag={{trim($tag)}}">{{$tag}}</a>
+        <a href="/?tag={{$tag->id}}">{{$tag->name}}</a>
     </li>
     @endforeach
 </ul>

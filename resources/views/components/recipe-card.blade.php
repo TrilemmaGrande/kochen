@@ -8,5 +8,5 @@
 <p>
     {{$recipe['description']}}
 </p>    
-<x-recipe-tags :tagsCsv="$recipe->tags"/>
+<x-recipe-tags :tags="$recipe->tags"/>
 </a> 

@@ -9,10 +9,22 @@ class Recipe extends Model
 {
     use HasFactory;
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function ingredients()
+    {
+        return $this->belongsToMany(Ingredient::class)
+            ->withPivot('quantity', 'unit_id')
+            ->using(RecipeIngredient::class);
+    }
+
     public function scopeFilter($query, array $filters)
     {
         if($filters['tag'] ?? false){
-            $query->where('tags', 'like', '%'. request('tag') . '%');
+            $query->where('tag_id', request('tag'));
         }
         if($filters['search'] ?? false){
             $query->where('title', 'like', '%'. request('search') . '%')
