@@ -1,5 +1,5 @@
 @extends('layout')
-@section('content')    
+@section('content')
 <form action="/recipes" method="POST" enctype="multipart/form-data">
     @csrf
     <label for="picture">Bild</label>
@@ -7,13 +7,34 @@
     <label for="title">Titel</label>
     <input type="text" name="title" id="" placeholder="z.B. Lamm und Knödel mit Soße" value="{{old('title')}}">
     @error('title')
-        <p>Feld erforderlich!</p>
+    <p>Feld erforderlich!</p>
     @enderror
     <label for="description">Beschreibung</label>
     <input type="text" name="description" id="" placeholder="z.B. schnelles Gericht mit viel Fleisch" value="{{old('description')}}">
     @error('description')
     <p>Feld erforderlich!</p>
     @enderror
+
+    <br>
+    <br>
+    <br>
+
+    <input type="text" name="ingredients[][quantity]" placeholder="Menge">
+    <select name="ingredients[][unit_id]">
+        <option value="" selected>Einheit wählen</option>
+        @foreach(\App\Models\Unit::all() as $unit)
+        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+        @endforeach
+    </select>
+    <input type="text" name="ingredients[][name]" placeholder="Zutat">
+    @error('ingredients[{{ $index }}][name]')
+    <p>Feld erforderlich!</p>
+    @enderror
+    
+    <br>
+    <br>
+    <br>
+
     <label for="preparation">Zubereitung</label>
     <input type="text" name="preparation" id="" placeholder="z.B. Alles mischen und Braten" value="{{old('preparation')}}">
     @error('preparation')

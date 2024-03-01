@@ -38,9 +38,11 @@ class DatabaseSeeder extends Seeder
             $recipe->tags()->attach($tagIds);
             // Füge Ingredients hinzu           
             $ingredientIds = Ingredient::inRandomOrder()->limit(7)->pluck('id')->toArray();
+            $position = 1;
             foreach ($ingredientIds as $ingredient) {
-                $pivotAttributes = RecipeIngredient::factory()->make()->toArray();
+                $pivotAttributes = RecipeIngredient::factory()->make(['position'=>$position])->toArray();
                 $recipe->ingredients()->attach($ingredient, $pivotAttributes);
+                $position++;
             }
         }
     }
