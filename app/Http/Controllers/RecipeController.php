@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Recipe;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
@@ -35,8 +36,11 @@ class RecipeController extends Controller
         if ($request->hasFile('picture')) {
             $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
         }
+
         $recipe = Recipe::create($formFields);
         $this->UpdateAndCreateTags($tagsCsv, $recipe);
+        $ingredients = $request->ingredients;
+        $this->UpdateAndCreateIngredients($ingredients, $recipe);
 
         return redirect('/')->with('message', 'Rezept erfolgreich erstellt!');
     }
@@ -48,7 +52,7 @@ class RecipeController extends Controller
             $ingredient->quantity *= $portions;
         }
         return view('recipes.show', [
-            'recipe' => $recipe, 
+            'recipe' => $recipe,
             'portions' => $portions
         ]);
     }
@@ -96,5 +100,23 @@ class RecipeController extends Controller
             $tagIds[] = $tagModel->id;
         }
         $recipe->tags()->sync($tagIds);
+    }
+
+    private function UpdateAndCreateIngredients(array $ingredients, Recipe $recipe)
+    {
+
+        for ($position = 1; $position <= count($ingredients); $position++) {
+            $ingredient = $ingredients[$position];
+            $ingredientName = $ingredient['name'];
+
+            $pivotAttributes = [
+                'quantity' => $ingredient['quantity'],
+                'unit_id' => $ingredient['unit_id'],
+                'position' => $position
+            ];
+
+            $ingredientId = Ingredient::firstOrCreate(['name' => $ingredientName])->id;
+            $recipe->ingredients()->attach($ingredientId, $pivotAttributes);
+        }
     }
 }

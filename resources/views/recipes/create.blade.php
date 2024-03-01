@@ -19,15 +19,15 @@
     <br>
     <br>
 
-    <input type="text" name="ingredients[][quantity]" placeholder="Menge">
-    <select name="ingredients[][unit_id]">
+    <input type="text" name="ingredients[1][quantity]" placeholder="Menge">
+    <select name="ingredients[1][unit_id]">
         <option value="" selected>Einheit wählen</option>
         @foreach(\App\Models\Unit::all() as $unit)
         <option value="{{ $unit->id }}">{{ $unit->name }}</option>
         @endforeach
     </select>
-    <input type="text" name="ingredients[][name]" placeholder="Zutat">
-    @error('ingredients[{{ $index }}][name]')
+    <input type="text" name="ingredients[1][name]" placeholder="Zutat">
+    @error('ingredients[1][name]')
     <p>Feld erforderlich!</p>
     @enderror
     
