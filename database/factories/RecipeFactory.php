@@ -18,8 +18,8 @@ class RecipeFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'description' => $this->faker->paragraph(5),
-            'preparation' => $this->faker->text()
+            'description' => $this->faker->paragraph(2),
+            'preparation' => $this->faker->text(400)
         ];
     }
 }

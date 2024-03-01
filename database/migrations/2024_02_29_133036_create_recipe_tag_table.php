@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('recipe_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recipe_id')->constrained();
+            $table->foreignId('recipe_id')->constrained()->onDelete('cascade');
             $table->foreignId('tag_id')->constrained();
             $table->timestamps();
         });

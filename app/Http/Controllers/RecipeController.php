@@ -28,14 +28,16 @@ class RecipeController extends Controller
         $formFields = $request->validate([
             'title' => ['required', Rule::unique('recipes', 'title')],
             'description' => 'required',
-            'tags' => 'required'
+            'preparation' => 'required'
         ]);
+        $tagsCsv = $request->validate(['tags' => 'required'])['tags'];
 
         if ($request->hasFile('picture')) {
             $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
         }
+        $recipe = Recipe::create($formFields);
+        $this->UpdateAndCreateTags($tagsCsv, $recipe);
 
-        Recipe::create($formFields);
 
         return redirect('/')->with('message', 'Rezept erfolgreich erstellt!');
     }
@@ -49,24 +51,15 @@ class RecipeController extends Controller
     {
         $formFields = $request->validate([
             'title' => 'required',
-            'description' => 'required'         
+            'description' => 'required',
+            'preparation' => 'required'
         ]);
+        $tagsCsv = $request->validate(['tags' => 'required'])['tags'];
 
         if ($request->hasFile('picture')) {
             $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
         }
-
-        $tagsCsv = $request->validate(['tags'=>'required'])['tags'];
-        // convert tags to array
-        $tagNames = explode(',', $tagsCsv);
-        // create final array with matching tags
-        $tagIds = [];
-        foreach ($tagNames as $tagName) {
-            $tagModel = Tag::firstOrCreate(['name' => trim($tagName)]);
-            $tagIds[] = $tagModel->id;
-        }
-        $recipe->tags()->sync($tagIds);
-
+        $this->UpdateAndCreateTags($tagsCsv, $recipe);
         $recipe->update($formFields);
 
         return back()->with('message', 'Rezept erfolgreich geändert!');
@@ -86,5 +79,18 @@ class RecipeController extends Controller
         return view('recipes.show', [
             'recipe' => $recipe
         ]);
+    }
+
+    private function UpdateAndCreateTags(String $tagsCsv, Recipe $recipe)
+    {
+        // convert tags to array
+        $tagNames = explode(',', $tagsCsv);
+        // create final array with matching tags
+        $tagIds = [];
+        foreach ($tagNames as $tagName) {
+            $tagModel = Tag::firstOrCreate(['name' => trim($tagName)]);
+            $tagIds[] = $tagModel->id;
+        }
+        $recipe->tags()->sync($tagIds);
     }
 }

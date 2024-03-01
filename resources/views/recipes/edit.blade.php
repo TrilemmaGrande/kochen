@@ -8,17 +8,22 @@
     <img class="recipe-picture" src="{{$recipe->picture ? asset('storage/' . $recipe->picture) : asset('images/no-image.svg')}}" alt="" />
 
     <label for="title">Titel</label>
-    <input type="text" name="title" id="" placeholder="z.B. Lamm und Knödel mit Soße" value="{{$recipe->title}}">
+    <input type="text" name="title" id=""  value="{{$recipe->title}}">
     @error('title')
         <p>Feld erforderlich!</p>
     @enderror
     <label for="description">Beschreibung</label>
-    <input type="text" name="description" id="" placeholder="z.B. schnelles Gericht mit viel Fleisch" value="{{$recipe->description}}">
+    <input type="text" name="description" id=""  value="{{$recipe->description}}">
     @error('description')
     <p>Feld erforderlich!</p>
     @enderror
+    <label for="preparation">Zubereitung</label>
+    <input type="text" name="preparation" id=""  value="{{$recipe->preparation}}">
+    @error('preparation')
+    <p>Feld erforderlich!</p>
+    @enderror
     <label for="tags">Tags (getrennt mit Kommata)</label>
-    <input type="text" name="tags" id="" placeholder="z.B. fleisch, schnell, einfach" value="{{$recipe->tags->pluck('name')->implode(', ')}}">
+    <input type="text" name="tags" id="" value="{{$recipe->tags->pluck('name')->implode(', ')}}">
     @error('tags')
     <p>Feld erforderlich!</p>
     @enderror

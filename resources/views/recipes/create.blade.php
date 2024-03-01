@@ -14,6 +14,11 @@
     @error('description')
     <p>Feld erforderlich!</p>
     @enderror
+    <label for="preparation">Zubereitung</label>
+    <input type="text" name="preparation" id="" placeholder="z.B. Alles mischen und Braten" value="{{old('preparation')}}">
+    @error('preparation')
+    <p>Feld erforderlich!</p>
+    @enderror
     <label for="tags">Tags (getrennt mit Kommata)</label>
     <input type="text" name="tags" id="" placeholder="z.B. fleisch, schnell, einfach" value="{{old('tags')}}">
     @error('tags')
