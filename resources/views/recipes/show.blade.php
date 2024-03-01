@@ -8,9 +8,18 @@
 <p>
     {{$recipe['description']}}
 </p>
+<p>
+<form method="GET" action="/recipes/{{$recipe->id}}">
+    @csrf
+    Anzahl Portionen:
+    <input type="number" min="1" name="portions" value={{(float)$portions}}>
+    <button type="submit">Berechnen</button>
+</form>
+</p>
+
 <ul>
     @foreach($recipe['ingredients'] as $ingredient)
-    <li>{{$ingredient->pivot->quantity}} {{$ingredient->pivot->unit->name}} {{$ingredient->name}}</li>    
+    <li>{{ number_format((float)$ingredient->pivot->quantity * (float)$portions,2,",",".")}} {{$ingredient->pivot->unit->name}} {{$ingredient->name}}</li>    
     @endforeach
 </ul>
 <p>

@@ -38,8 +38,19 @@ class RecipeController extends Controller
         $recipe = Recipe::create($formFields);
         $this->UpdateAndCreateTags($tagsCsv, $recipe);
 
-
         return redirect('/')->with('message', 'Rezept erfolgreich erstellt!');
+    }
+
+    public function show(Recipe $recipe)
+    {
+        $portions = request('portions') ?? 1.00;
+        foreach ($recipe->ingredients as $ingredient) {
+            $ingredient->quantity *= $portions;
+        }
+        return view('recipes.show', [
+            'recipe' => $recipe, 
+            'portions' => $portions
+        ]);
     }
 
     public function edit(Recipe $recipe)
@@ -72,13 +83,6 @@ class RecipeController extends Controller
         }
         $recipe->delete();
         return redirect('/')->with('message', 'Rezept wurde gelöscht!');
-    }
-
-    public function show(Recipe $recipe)
-    {
-        return view('recipes.show', [
-            'recipe' => $recipe
-        ]);
     }
 
     private function UpdateAndCreateTags(String $tagsCsv, Recipe $recipe)
