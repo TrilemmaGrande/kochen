@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -48,26 +49,37 @@ class RecipeController extends Controller
     {
         $formFields = $request->validate([
             'title' => 'required',
-            'description' => 'required',
-            'tags' => 'required'
+            'description' => 'required'         
         ]);
 
         if ($request->hasFile('picture')) {
             $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
         }
 
+        $tagsCsv = $request->validate(['tags'=>'required'])['tags'];
+        // convert tags to array
+        $tagNames = explode(',', $tagsCsv);
+        // create final array with matching tags
+        $tagIds = [];
+        foreach ($tagNames as $tagName) {
+            $tagModel = Tag::firstOrCreate(['name' => trim($tagName)]);
+            $tagIds[] = $tagModel->id;
+        }
+        $recipe->tags()->sync($tagIds);
+
         $recipe->update($formFields);
 
         return back()->with('message', 'Rezept erfolgreich geändert!');
     }
 
-public function destroy(Recipe $recipe){
-    if (isset($recipe->picture)) {
-        Storage::disk('public')->delete($recipe->picture);
+    public function destroy(Recipe $recipe)
+    {
+        if (isset($recipe->picture)) {
+            Storage::disk('public')->delete($recipe->picture);
+        }
+        $recipe->delete();
+        return redirect('/')->with('message', 'Rezept wurde gelöscht!');
     }
-    $recipe->delete();
-    return redirect('/')->with('message', 'Rezept wurde gelöscht!');
-}
 
     public function show(Recipe $recipe)
     {

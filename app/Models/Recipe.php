@@ -31,8 +31,10 @@ class Recipe extends Model
 
         if ($filters['search'] ?? false) {
             $query->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere($this->tags()->getPivotColumns('name'), 'like', '%' . request('search') . '%')
-                ->orWhere('description', 'like', '%' . request('search') . '%');
+                ->orWhere('description', 'like', '%' . request('search') . '%')
+                ->orWhereHas('tags', function ($subQuery) use ($filters) {
+                    $subQuery->where('tags.name', request('search'));
+                });
         }
     }
 }
