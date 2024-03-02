@@ -26,6 +26,8 @@ class RecipeController extends Controller
 
     public function store(Request $request)
     {
+        //TODO: Update Validation
+
         $formFields = $request->validate([
             'title' => ['required', Rule::unique('recipes', 'title')],
             'description' => 'required',
@@ -64,18 +66,24 @@ class RecipeController extends Controller
 
     public function update(Request $request, Recipe $recipe)
     {
+
+
         $formFields = $request->validate([
             'title' => 'required',
             'description' => 'required',
             'preparation' => 'required'
         ]);
         $tagsCsv = $request->validate(['tags' => 'required'])['tags'];
-
+        if (isset($recipe->picture)) {
+            Storage::disk('public')->delete($recipe->picture);
+        }
         if ($request->hasFile('picture')) {
             $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
         }
         $this->UpdateAndCreateTags($tagsCsv, $recipe);
         $recipe->update($formFields);
+        $ingredients = $request->ingredients;
+        $this->UpdateAndCreateIngredients($ingredients, $recipe);
 
         return back()->with('message', 'Rezept erfolgreich geändert!');
     }
@@ -104,19 +112,19 @@ class RecipeController extends Controller
 
     private function UpdateAndCreateIngredients(array $ingredients, Recipe $recipe)
     {
-
-        for ($position = 1; $position <= count($ingredients); $position++) {
-            $ingredient = $ingredients[$position];
+        foreach ($ingredients as $position => $ingredient) {
             $ingredientName = $ingredient['name'];
-
+    
             $pivotAttributes = [
                 'quantity' => $ingredient['quantity'],
                 'unit_id' => $ingredient['unit_id'],
                 'position' => $position
             ];
-
-            $ingredientId = Ingredient::firstOrCreate(['name' => $ingredientName])->id;
-            $recipe->ingredients()->attach($ingredientId, $pivotAttributes);
+    
+            $ingredientModel = Ingredient::firstOrCreate(['name' => $ingredientName]);
+            $ingredientId = $ingredientModel->id;
+    
+            $recipe->ingredients()->syncWithoutDetaching([$ingredientId => $pivotAttributes]);
         }
     }
 }

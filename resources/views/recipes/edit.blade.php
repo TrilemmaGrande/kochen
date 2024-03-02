@@ -23,38 +23,34 @@
     <br>
 
     <label for="ingredients">Zutaten</label><br>
-    @for($i = 1; $i <= count($recipe->ingredients); $i++)
-    <?php $ingredient = $recipe->ingredients->where('pivot.position', $i)->first(); ?>
-    {{$ingredient->pivot->position}}
-        <input type="text" name="ingredients[{{$ingredient->pivot->position}}][quantity]" value="{{ $ingredient->pivot->quantity }}">
-        <select name="ingredients[{{$ingredient->pivot->position}}][unit_id]">
-            <option value="" selected>Einheit</option>
-            @foreach(\App\Models\Unit::all() as $unit)
-            <option value="{{ $unit->id }}" {{ ($ingredient->pivot->unit_id ?? null) == $unit->id ? 'selected' : '' }}>
-                {{ $unit->name }}
-            </option>
-            @endforeach
-        </select>
-        <input type="text" name="ingredients[{{$ingredient->pivot->position}}][name]" value="{{ $ingredient->name }}"><br>
-        @endfor
-        @error('ingredients[{{$ingredient->pivot->position}}][name]')
-        <p>Feld erforderlich!</p>
-        @enderror
+    @foreach($recipe->ingredients as $ingredient)
+    <input type="text" name="ingredients[{{ $ingredient->pivot->position }}][quantity]" value="{{ $ingredient->pivot->quantity }}">
+    <select name="ingredients[{{ $ingredient->pivot->position }}][unit_id]">
+        <option value="" selected>Einheit</option>
+        @foreach(\App\Models\Unit::all() as $unit)
+        <option value="{{ $unit->id }}" {{ $ingredient->pivot->unit_id == $unit->id ? 'selected' : '' }}>
+            {{ $unit->name }}
+        </option>
+        @endforeach
+    </select>
+    <input type="text" name="ingredients[{{ $ingredient->pivot->position }}][name]" value="{{ $ingredient->name }}"><br>
+    @endforeach
 
-        <br>
-        <br>
-        <br>
 
-        <label for="preparation">Zubereitung</label>
-        <input type="text" name="preparation" id="" value="{{$recipe->preparation}}">
-        @error('preparation')
-        <p>Feld erforderlich!</p>
-        @enderror
-        <label for="tags">Tags (getrennt mit Kommata)</label>
-        <input type="text" name="tags" id="" value="{{$recipe->tags->pluck('name')->implode(', ')}}">
-        @error('tags')
-        <p>Feld erforderlich!</p>
-        @enderror
-        <button type="submit">Rezept ändern</button>
+    <br>
+    <br>
+    <br>
+
+    <label for="preparation">Zubereitung</label>
+    <input type="text" name="preparation" id="" value="{{$recipe->preparation}}">
+    @error('preparation')
+    <p>Feld erforderlich!</p>
+    @enderror
+    <label for="tags">Tags (getrennt mit Kommata)</label>
+    <input type="text" name="tags" id="" value="{{$recipe->tags->pluck('name')->implode(', ')}}">
+    @error('tags')
+    <p>Feld erforderlich!</p>
+    @enderror
+    <button type="submit">Rezept ändern</button>
 </form>
 @endsection

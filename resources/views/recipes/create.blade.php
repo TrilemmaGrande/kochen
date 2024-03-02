@@ -18,7 +18,6 @@
     <br>
     <br>
     <br>
-
     <input type="text" name="ingredients[1][quantity]" placeholder="Menge">
     <select name="ingredients[1][unit_id]">
         <option value="" selected>Einheit wählen</option>
@@ -30,7 +29,6 @@
     @error('ingredients[1][name]')
     <p>Feld erforderlich!</p>
     @enderror
-    
     <br>
     <br>
     <br>

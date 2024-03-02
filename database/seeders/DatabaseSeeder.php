@@ -10,6 +10,7 @@ use App\Models\Recipe;
 use App\Models\Ingredient;
 use Illuminate\Database\Seeder;
 use App\Models\RecipeIngredient;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +24,12 @@ class DatabaseSeeder extends Seeder
         $ingredientCount = 20;
         $recipeCount = 20;
 
+        // Get the list of files in the pictures directory
+        $files = Storage::disk('public')->files('pictures');
+        // Delete each file in the pictures directory
+        foreach ($files as $file) {
+            Storage::disk('public')->delete($file);
+        }
 
         for ($i = 0; $i < $tagCount; $i++) {
             Tag::factory()->create();
@@ -32,7 +39,7 @@ class DatabaseSeeder extends Seeder
         }
         for ($i = 0; $i < $recipeCount; $i++) {
             $recipe = Recipe::factory()->create();
-   
+
             // Füge Tags hinzu
             $tagIds = Tag::inRandomOrder()->limit(5)->pluck('id')->toArray();
             $recipe->tags()->attach($tagIds);
@@ -40,7 +47,7 @@ class DatabaseSeeder extends Seeder
             $ingredientIds = Ingredient::inRandomOrder()->limit(7)->pluck('id')->toArray();
             $position = 1;
             foreach ($ingredientIds as $ingredient) {
-                $pivotAttributes = RecipeIngredient::factory()->make(['position'=>$position])->toArray();
+                $pivotAttributes = RecipeIngredient::factory()->make(['position' => $position])->toArray();
                 $recipe->ingredients()->attach($ingredient, $pivotAttributes);
                 $position++;
             }

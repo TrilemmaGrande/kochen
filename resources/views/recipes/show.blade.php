@@ -19,7 +19,7 @@
 
 <ul>
     @foreach($recipe['ingredients']->sortBy('pivot.position') as $ingredient) 
-    <li>{{$ingredient->pivot->position}} {{ number_format((float)$ingredient->pivot->quantity * (float)$portions,2,",",".")}} {{$ingredient->pivot->unit->name}} {{$ingredient->name}}</li>    
+    <li>{{ number_format((float)$ingredient->pivot->quantity * (float)$portions,2,",",".")}} {{$ingredient->pivot->unit->name}} {{$ingredient->name}}</li>    
     @endforeach
 </ul>
 <p>
