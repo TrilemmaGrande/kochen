@@ -112,19 +112,20 @@ class RecipeController extends Controller
 
     private function UpdateAndCreateIngredients(array $ingredients, Recipe $recipe)
     {
+        $recipe->ingredients()->detach();
         foreach ($ingredients as $position => $ingredient) {
             $ingredientName = $ingredient['name'];
     
             $pivotAttributes = [
                 'quantity' => $ingredient['quantity'],
                 'unit_id' => $ingredient['unit_id'],
-                'position' => $position
+                'position' => $position + 1
             ];
     
             $ingredientModel = Ingredient::firstOrCreate(['name' => $ingredientName]);
             $ingredientId = $ingredientModel->id;
     
-            $recipe->ingredients()->syncWithoutDetaching([$ingredientId => $pivotAttributes]);
+            $recipe->ingredients()->attach([$ingredientId => $pivotAttributes]);
         }
     }
 }
