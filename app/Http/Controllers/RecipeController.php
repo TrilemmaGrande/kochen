@@ -31,11 +31,14 @@ class RecipeController extends Controller
             'description' => 'required',
             'preparation' => 'required'
         ]);
-        $tagsCsv = $request->validate(['tags' => 'required'])['tags'];
+        $tagsCsv = $request->validate([
+            'tags' => 'required'
+        ])['tags'];
+
         $ingredients = $request->validate([
-            'ingredients.*.quantity' => 'nullable|numeric',
-            'ingredients.*.unit_id' => 'nullable|numeric',
-            'ingredients.*.name' => 'required|string',
+            'ingredients.*.quantity'    => 'nullable|numeric',
+            'ingredients.*.unit_id'     => 'nullable|numeric',
+            'ingredients.*.name'        => 'required|string',
         ]);
 
         if ($request->hasFile('picture')) {
@@ -73,8 +76,11 @@ class RecipeController extends Controller
             'description' => 'required',
             'preparation' => 'required'
         ]);
-        
-        $tagsCsv = $request->validate(['tags' => 'required'])['tags'];
+
+        $tagsCsv = $request->validate([
+            'tags' => 'required'
+        ])['tags'];
+
         $ingredients = $request->validate([
             'ingredients.*.quantity' => 'nullable|numeric',
             'ingredients.*.unit_id' => 'nullable|numeric',
@@ -91,7 +97,7 @@ class RecipeController extends Controller
         $recipe->update($formFields);
         $this->UpdateAndCreateTags($tagsCsv, $recipe);
         $this->UpdateAndCreateIngredients($ingredients, $recipe);
-        
+
         return back()->with('message', 'Rezept erfolgreich geändert!');
     }
 
@@ -127,10 +133,10 @@ class RecipeController extends Controller
                 'unit_id' => $ingredient['unit_id'],
                 'position' => $position
             ];
-    
+
             $ingredientModel = Ingredient::firstOrCreate(['name' => $ingredientName]);
             $ingredientId = $ingredientModel->id;
-    
+
             $recipe->ingredients()->attach([$ingredientId => $pivotAttributes]);
         }
     }
