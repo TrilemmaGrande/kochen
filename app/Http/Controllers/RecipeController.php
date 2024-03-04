@@ -32,17 +32,16 @@ class RecipeController extends Controller
             'preparation' => 'required'
         ]);
         $tagsCsv = $request->validate(['tags' => 'required'])['tags'];
-
-        if ($request->hasFile('picture')) {
-            $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
-        }
-
         $ingredients = $request->validate([
             'ingredients.*.quantity' => 'nullable|numeric',
             'ingredients.*.unit_id' => 'nullable|numeric',
             'ingredients.*.name' => 'required|string',
         ]);
-        
+
+        if ($request->hasFile('picture')) {
+            $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
+        }
+
         $recipe = Recipe::create($formFields);
         $this->UpdateAndCreateTags($tagsCsv, $recipe);
         $this->UpdateAndCreateIngredients($ingredients, $recipe);
@@ -69,22 +68,23 @@ class RecipeController extends Controller
 
     public function update(Request $request, Recipe $recipe)
     {
-
-
         $formFields = $request->validate([
             'title' => 'required',
             'description' => 'required',
             'preparation' => 'required'
         ]);
+        
         $tagsCsv = $request->validate(['tags' => 'required'])['tags'];
         $ingredients = $request->validate([
             'ingredients.*.quantity' => 'nullable|numeric',
             'ingredients.*.unit_id' => 'nullable|numeric',
             'ingredients.*.name' => 'required|string',
         ]);
+
         if (isset($recipe->picture)) {
             Storage::disk('public')->delete($recipe->picture);
         }
+
         if ($request->hasFile('picture')) {
             $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
         }
@@ -122,11 +122,10 @@ class RecipeController extends Controller
         $recipe->ingredients()->detach();
         foreach ($ingredients['ingredients'] as $position => $ingredient) {
             $ingredientName = $ingredient['name'];
-    
             $pivotAttributes = [
                 'quantity' => $ingredient['quantity'],
                 'unit_id' => $ingredient['unit_id'],
-                'position' => $position + 1
+                'position' => $position
             ];
     
             $ingredientModel = Ingredient::firstOrCreate(['name' => $ingredientName]);
