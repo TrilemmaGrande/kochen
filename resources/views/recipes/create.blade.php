@@ -18,17 +18,24 @@
     <br>
     <br>
     <br>
-    <input type="text" name="ingredients[1][quantity]" placeholder="Menge">
+    <input type="text" name="ingredients[1][quantity]" placeholder="Menge" value="{{old('ingredients.1.quantity') }}">
+    @error('ingredients.1.quantity')
+    <p>Numerischer Wert erforderlich!</p>
+    @enderror
     <select name="ingredients[1][unit_id]">
-        <option value="" selected>Einheit wählen</option>
+        <option value="" {{ old('ingredients.1.unit_id') == '' ? 'selected' : '' }}>Einheit wählen</option>
         @foreach(\App\Models\Unit::all() as $unit)
-        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+            <option value="{{ $unit->id }}" {{ old('ingredients.1.unit_id') == $unit->id ? 'selected' : '' }}>
+                {{ $unit->name }}
+            </option>
         @endforeach
-    </select>
-    <input type="text" name="ingredients[1][name]" placeholder="Zutat">
-    @error('ingredients[1][name]')
+    </select>    
+    <input type="text" name="ingredients[1][name]" placeholder="Zutat"  value="{{old('ingredients.1.name')}}">
+    @error('ingredients.1.name')
     <p>Feld erforderlich!</p>
     @enderror
+
+
     <br>
     <br>
     <br>

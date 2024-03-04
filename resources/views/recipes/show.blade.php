@@ -19,7 +19,8 @@
 
 <ul>
     @foreach($recipe['ingredients']->sortBy('pivot.position') as $ingredient) 
-    <li>{{ number_format((float)$ingredient->pivot->quantity * (float)$portions,2,",",".")}} {{$ingredient->pivot->unit->name}} {{$ingredient->name}}</li>    
+    <?php $quantity = number_format((float)$ingredient->pivot->quantity * (float)$portions,2,",",".") ?? "" ?>
+    <li>{{ $quantity > 0 ? "" : $quantity }} {{$ingredient->pivot->unit->name ?? ""}} {{$ingredient->name}}</li>    
     @endforeach
 </ul>
 <p>

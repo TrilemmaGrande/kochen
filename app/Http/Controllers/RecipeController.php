@@ -26,8 +26,6 @@ class RecipeController extends Controller
 
     public function store(Request $request)
     {
-        //TODO: Update Validation
-
         $formFields = $request->validate([
             'title' => ['required', Rule::unique('recipes', 'title')],
             'description' => 'required',
@@ -39,9 +37,14 @@ class RecipeController extends Controller
             $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
         }
 
+        $ingredients = $request->validate([
+            'ingredients.*.quantity' => 'nullable|numeric',
+            'ingredients.*.unit_id' => 'nullable|numeric',
+            'ingredients.*.name' => 'required|string',
+        ]);
+        
         $recipe = Recipe::create($formFields);
         $this->UpdateAndCreateTags($tagsCsv, $recipe);
-        $ingredients = $request->ingredients;
         $this->UpdateAndCreateIngredients($ingredients, $recipe);
 
         return redirect('/')->with('message', 'Rezept erfolgreich erstellt!');
@@ -74,17 +77,21 @@ class RecipeController extends Controller
             'preparation' => 'required'
         ]);
         $tagsCsv = $request->validate(['tags' => 'required'])['tags'];
+        $ingredients = $request->validate([
+            'ingredients.*.quantity' => 'nullable|numeric',
+            'ingredients.*.unit_id' => 'nullable|numeric',
+            'ingredients.*.name' => 'required|string',
+        ]);
         if (isset($recipe->picture)) {
             Storage::disk('public')->delete($recipe->picture);
         }
         if ($request->hasFile('picture')) {
             $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
         }
-        $this->UpdateAndCreateTags($tagsCsv, $recipe);
         $recipe->update($formFields);
-        $ingredients = $request->ingredients;
+        $this->UpdateAndCreateTags($tagsCsv, $recipe);
         $this->UpdateAndCreateIngredients($ingredients, $recipe);
-
+        
         return back()->with('message', 'Rezept erfolgreich geändert!');
     }
 
@@ -113,7 +120,7 @@ class RecipeController extends Controller
     private function UpdateAndCreateIngredients(array $ingredients, Recipe $recipe)
     {
         $recipe->ingredients()->detach();
-        foreach ($ingredients as $position => $ingredient) {
+        foreach ($ingredients['ingredients'] as $position => $ingredient) {
             $ingredientName = $ingredient['name'];
     
             $pivotAttributes = [
