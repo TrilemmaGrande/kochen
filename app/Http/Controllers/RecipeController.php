@@ -55,6 +55,7 @@ class RecipeController extends Controller
     public function show(Recipe $recipe)
     {
         $portions = request('portions') ?? 1.00;
+
         foreach ($recipe->ingredients as $ingredient) {
             $ingredient->quantity *= $portions;
         }

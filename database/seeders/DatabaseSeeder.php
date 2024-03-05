@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $tagCount = 10;
         $ingredientCount = 20;
         $recipeCount = 20;
+        $unitCount = 15;
 
         // Get the list of files in the pictures directory
         $files = Storage::disk('public')->files('pictures');
@@ -30,7 +31,9 @@ class DatabaseSeeder extends Seeder
         foreach ($files as $file) {
             Storage::disk('public')->delete($file);
         }
-
+        for ($i = 0; $i < $unitCount; $i++) {
+            Unit::factory()->create();
+        }
         for ($i = 0; $i < $tagCount; $i++) {
             Tag::factory()->create();
         }
@@ -46,9 +49,15 @@ class DatabaseSeeder extends Seeder
             // Füge Ingredients hinzu           
             $ingredientIds = Ingredient::inRandomOrder()->limit(7)->pluck('id')->toArray();
             $position = 1;
-            foreach ($ingredientIds as $ingredient) {
-                $pivotAttributes = RecipeIngredient::factory()->make(['position' => $position])->toArray();
-                $recipe->ingredients()->attach($ingredient, $pivotAttributes);
+            foreach ($ingredientIds as $ingredientId) {
+                $unitId = Unit::inRandomOrder()->pluck('id')->first();
+                $recipeIngredient = RecipeIngredient::factory()->create([
+                    'recipe_id' => $recipe->id,
+                    'ingredient_id' => $ingredientId,
+                    'position' => $position,
+                    'unit_id' => $unitId
+                ]);
+        
                 $position++;
             }
         }

@@ -15,4 +15,5 @@ class Ingredient extends Model
             ->withPivot('quantity', 'unit_id', 'position')
             ->using(RecipeIngredient::class);
     }
+
 }

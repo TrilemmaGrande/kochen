@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Unit;
+use App\Models\Recipe;
+use App\Models\Ingredient;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +21,7 @@ class RecipeIngredientFactory extends Factory
     {
         return [
             'unit_id' => Unit::factory(),
-            'quantity' => $this->faker->randomFloat(2, 1, 100),
+            'quantity' => $this->faker->randomFloat(2, 1, 100)
         ];
     }
 }

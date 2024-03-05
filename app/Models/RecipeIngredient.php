@@ -16,4 +16,5 @@ class RecipeIngredient extends Pivot
     {
         return $this->belongsTo(Unit::class);
     }
+
 }

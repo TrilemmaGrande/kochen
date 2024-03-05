@@ -16,9 +16,9 @@ class Recipe extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredient::class)
-            ->withPivot('quantity', 'unit_id', 'position')
-            ->using(RecipeIngredient::class);
+        return $this->belongsToMany(Ingredient::class, 'recipe_ingredient')
+            ->using(RecipeIngredient::class)
+            ->withPivot('quantity', 'unit_id', 'position');
     }
 
     public function scopeFilter($query, array $filters)
