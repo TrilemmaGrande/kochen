@@ -24,7 +24,7 @@
     @endforeach
 </ul>
 <p>
-    {{$recipe['preparation']}}
+    {!! $recipe['preparation'] !!}
 </p>
 
 <a href="/recipes/edit/{{$recipe->id}}">Bearbeiten</a>

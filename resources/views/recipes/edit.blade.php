@@ -48,7 +48,7 @@
     <br>
 
     <label for="preparation">Zubereitung</label>
-    <input type="text" name="preparation" id="" value="{{ old('preparation') ?? $recipe->preparation}}">
+    <textarea type="text" name="preparation" id="preparationEditor" value="{{old('preparation') ?? $recipe->preparation}}">{{old('preparation') ?? $recipe->preparation}}</textarea>
     @error('preparation')
     <p>Feld erforderlich!</p>
     @enderror
