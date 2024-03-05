@@ -18,7 +18,6 @@ restart apache service
 php artisan cache:clear
 php artisan config:cache
 php artisan key:generate
-php artisan serve
 -------------------------------------------
 
 website default port 8000: http://localhost:8000
@@ -34,4 +33,10 @@ DB_PORT=3306
 DB_DATABASE= //yourDatabaseName
 DB_USERNAME= //databaseUser
 DB_PASSWORD= //databsePassword
+-------------------------------------------
+
+bash:
+-------------------------------------------
+php artisan migrate:fresh --seed
+php artisan serve
 -------------------------------------------
