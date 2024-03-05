@@ -41,7 +41,7 @@
     <br>
 
     <label for="preparation">Zubereitung</label>
-    <input type="text" name="preparation" id="" placeholder="z.B. Alles mischen und Braten" value="{{old('preparation')}}">
+    <textarea type="text" name="preparation" id="preparationEditor" value="{{old('preparation')}}"placeholder="z.B. Alles mischen und Braten"></textarea>
     @error('preparation')
     <p>Feld erforderlich!</p>
     @enderror
