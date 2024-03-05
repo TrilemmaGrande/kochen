@@ -1,4 +1,4 @@
-Framework: Laravel<br>
+Framework: Laravel 10.45<br>
 Requirements: LAMP or XAMPP, Laravel framework<br>
 
 -------------------------------------------
