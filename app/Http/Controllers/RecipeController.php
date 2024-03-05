@@ -24,6 +24,17 @@ class RecipeController extends Controller
         return view('recipes.create');
     }
 
+    public function storeImage(Request $request)
+    {        
+         $uploadedFile = $request->file('file');
+
+         $path = $uploadedFile->store('pictures_prep', 'public');
+ 
+         $imageUrl = asset('storage/' . str_replace('public_prep/', '', $path));
+ 
+         return response()->json(['location' => $imageUrl]);
+    }
+    
     public function store(Request $request)
     {
         $formFields = $request->validate([
