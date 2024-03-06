@@ -1,5 +1,3 @@
 @props(['recipe'])
 
-<p>
-    {{$recipe['description']}}
-</p>
+{{$recipe['description']}}

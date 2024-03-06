@@ -1,8 +1,8 @@
 @extends('layout')
 @section('content')
 
-<x-show.recipe-picture :picture="$recipe->picture"/>
 <x-shared.recipe-title :recipe="$recipe"/>
+<x-show.recipe-picture :picture="$recipe->picture"/>
 <x-shared.recipe-description :recipe="$recipe"/>
 <x-show.recipe-portions :recipe="$recipe" :portions="$portions"/>
 <x-show.recipe-ingredients :ingredients="$recipe['ingredients']" :portions="$portions"/>

@@ -1,5 +1,8 @@
 @extends('layout')
 @section('content')
+
+<x-shared.site-heading :heading="'Rezept erstellen'"/>
+
 <form action="/recipes" method="POST" enctype="multipart/form-data">
     @csrf
     <x-create.recipe-title />

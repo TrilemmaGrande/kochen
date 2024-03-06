@@ -1,6 +1,7 @@
 @extends('layout')
-@section('content')    
-<h1>{{$heading}}</h1>
+@section('content')   
+
+<x-shared.site-heading :heading="'Alle Rezepte'"/>
 
 @include('partials._search')
 

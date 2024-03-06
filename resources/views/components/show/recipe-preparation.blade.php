@@ -1,5 +1,4 @@
 @props(['recipe'])
 
-<p>
-    {!! $recipe['preparation'] !!}
-</p>
+
+{!! $recipe['preparation'] !!}

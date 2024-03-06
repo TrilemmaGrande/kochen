@@ -14,7 +14,6 @@ class RecipeController extends Controller
     public function index()
     {
         return view('recipes.index', [
-            'heading' => 'Neueste Rezepte',
             'recipes' => Recipe::latest('recipes.created_at')->filter(request(['tag', 'search']))->simplePaginate(10)
         ]);
     }

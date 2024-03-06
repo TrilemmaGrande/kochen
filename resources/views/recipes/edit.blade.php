@@ -1,5 +1,8 @@
 @extends('layout')
 @section('content')
+
+<x-shared.site-heading :heading="'Rezept bearbeiten'"/>
+
 <form action="/recipes/{{$recipe->id}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')

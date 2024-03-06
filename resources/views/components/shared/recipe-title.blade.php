@@ -1,5 +1,5 @@
 @props(['recipe'])
 
-<h2>
+<h1>
     {{$recipe['title']}}
-</h2>
+</h1>
