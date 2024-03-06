@@ -5,12 +5,15 @@
 @include('partials._search')
 
 @if (count($recipes) == 0)
-<h2>Keine Rezepte verfügbar!</h2>
+<h2>Keine Rezepte gefunden!</h2>
 @endif
+
 @foreach($recipes as $recipe)
-<x-recipe-card :recipe="$recipe"/>
+<x-index.recipe-card :recipe="$recipe"/>
 @endforeach
+
 <div class="pagination">
 {{$recipes->links()}}
 </div>
+
 @endsection

@@ -13,6 +13,9 @@ body {
 }
 
 .recipe-picture {
+    width: 40rem;
+}
+.recipe-picture-card {
     width: 10rem;
 }
 
