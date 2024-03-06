@@ -1,1 +1,7 @@
-<h1>Kochen für Arme</h1>
+@props(['title'])
+
+<div class="page-title">
+    <a href="/">{{$title}}</a>
+</div>
+
+

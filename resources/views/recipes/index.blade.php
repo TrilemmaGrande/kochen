@@ -3,18 +3,21 @@
 
 <x-shared.site-heading :heading="'Alle Rezepte'"/>
 
-@include('partials._search')
-
 @if (count($recipes) == 0)
 <h2>Keine Rezepte gefunden!</h2>
 @endif
 
+<div class="card-list">
 @foreach($recipes as $recipe)
-<x-index.recipe-card :recipe="$recipe"/>
-@endforeach
-
-<div class="pagination">
-{{$recipes->links()}}
+    <x-module-container>
+        <x-index.recipe-card :recipe="$recipe"/>
+    </x-module-container>
+    @endforeach
 </div>
 
+<x-module-container>
+    <div class="pagination">
+    {{$recipes->links()}}
+    </div>
+</x-module-container>
 @endsection

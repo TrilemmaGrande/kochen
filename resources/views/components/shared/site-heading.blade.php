@@ -1,3 +1,5 @@
 @props(['heading'])
 
-<h1>{{$heading}}</h1>
+<div class="site-heading">
+    {{$heading}}
+</div>

@@ -1,1 +1,5 @@
-<title>Kochen für Arme</title>
+@props(['title'])
+
+<title>{{$title}}</title>
+
+
