@@ -1,1 +1,3 @@
-<a href="/recipes/create"><p>Neues Rezept</p></a>
+<nav>
+<a href="/recipes/create">Neues Rezept</a>
+</nav>

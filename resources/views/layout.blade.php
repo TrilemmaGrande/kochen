@@ -11,7 +11,9 @@
     <div class="header">
         <x-header.page-logo />
         <x-header.page-title :title="'Kochen für Arme'"/>
+        <div class=header-search>
         @include('partials._search')
+        </div>
         <x-header.page-navigation />
     </div>
     @yield('content')
