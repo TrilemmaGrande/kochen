@@ -9,7 +9,7 @@
 
 <div class="card-list">
 @foreach($recipes as $recipe)
-    <x-module-container>
+    <x-module-container> 
         <x-index.recipe-card :recipe="$recipe"/>
     </x-module-container>
     @endforeach

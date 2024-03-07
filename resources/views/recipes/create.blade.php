@@ -5,8 +5,8 @@
 
 <form action="/recipes" method="POST" enctype="multipart/form-data">
     @csrf
-    <x-module-container>
-        <x-create.recipe-picture />
+    <x-module-container>  
+            <x-create.recipe-picture />
     </x-module-container>
 
     <x-module-container>

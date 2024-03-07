@@ -8,14 +8,16 @@
 </head>
 <x-shared.notify-message/>
 <body>
-    <div class="header">
-        <x-header.page-logo />
-        <x-header.page-title :title="'Kochen für Arme'"/>
-        <div class=header-search>
-        @include('partials._search')
+    <div class="page-container">
+        <div class="header">
+            <x-header.page-logo />
+            <x-header.page-title :title="'Kochen für Arme'"/>
+            <div class=header-search>
+                @include('partials._search')
+            </div>
+            <x-header.page-navigation />
         </div>
-        <x-header.page-navigation />
+            @yield('content')
     </div>
-    @yield('content')
 </body>
 </html>

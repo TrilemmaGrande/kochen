@@ -8,7 +8,9 @@
     @method('PUT')
         
     <x-module-container>
-        <x-edit.recipe-picture :picture="$recipe->picture" />
+        <div class="recipe-picture-container">
+            <x-edit.recipe-picture :picture="$recipe->picture" />
+        </div>
     </x-module-container>
 
     <x-module-container>
