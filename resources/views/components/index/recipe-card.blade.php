@@ -2,7 +2,9 @@
 
 
 <a href="/recipes/{{$recipe['id']}}">
-    <x-index.card.recipe-picture :picture="$recipe->picture"/>
+    <div class="recipe-picture-card-container">
+        <x-index.card.recipe-picture :picture="$recipe->picture"/>
+    </div>
         <x-shared.recipe-title :recipe="$recipe"/>
 </a> 
     <x-shared.recipe-description :recipe="$recipe"/>

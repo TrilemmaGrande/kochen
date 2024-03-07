@@ -106,8 +106,9 @@ div.page-title>a:hover {
     margin-right: 1vb;
     margin-bottom: 1vb;
     display:flex;
-flex-direction: column;
+    flex-direction: column;
 }
+
 .card-list>.module-container:nth-child(3n){
     margin-right: 0;
 }

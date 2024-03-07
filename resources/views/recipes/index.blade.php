@@ -17,7 +17,7 @@
 
 <x-module-container>
     <div class="pagination">
-    {{$recipes->links()}}
+        {{$recipes->links()}}
     </div>
 </x-module-container>
 @endsection
