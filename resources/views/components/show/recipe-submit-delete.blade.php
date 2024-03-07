@@ -4,5 +4,5 @@
 <form method="POST" action="/recipes/{{$recipe->id}}">
     @csrf
     @method('DELETE')
-    <button type="submit">Löschen</button>
+    <button class="btn" type="submit">Löschen</button>
 </form>

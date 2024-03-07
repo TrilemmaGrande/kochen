@@ -3,33 +3,73 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin: 2px;
+    color: #39739d;
+
 }
 
 .page-container{
     margin: 0 2rem;
 }
 
+.btn {
+  background-color: #e1ecf4;
+  border-radius: 3px;
+  border: 1px solid #7aa7c7;
+  box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #39739d;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #b3d3ea;
+  color: #2c5777;
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.btn:active {
+  background-color: #a0c7e4;
+  box-shadow: none;
+  color: #2c5777;
+}
+
 body {
     font: 14px sans-serif;
     background-image: url('../../images/background.jpg');
     min-height: 100%;
-    min-width: 100%;
- 
+    min-width: 100%; 
     padding: 0;
     margin: 0;
-    color: #eee;
 }
 
 
 a:link {
     text-decoration: none;
-    color: #eee;
-
+    color: #3f9072;
 }
 
 a:visited {
     text-decoration: none;
-    color: #eee;
+    color: #3f9072;
 
 }
 
@@ -42,9 +82,12 @@ a:hover {
 a:active {
     text-decoration: none;
 }
+div.page-title>a{
+    color: #39739d;
 
+}
 div.page-title>a:hover {
-    color: #eee;
+    color: #ccd2ff;
 }
 
 
@@ -73,8 +116,8 @@ div.page-title>a:hover {
 
 .page-title { 
     font-weight: 600;
-    font-size: 40px;    margin: 20px;
-
+    font-size: 40px; 
+ 
 }
 
 .site-heading {

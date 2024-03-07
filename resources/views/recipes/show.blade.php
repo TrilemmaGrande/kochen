@@ -1,11 +1,12 @@
 @extends('layout')
 @section('content')
 
+<x-shared.site-heading :heading="$recipe->title"/>
+    
 <x-module-container>
     <div class="recipe-picture-container">
         <x-show.recipe-picture :picture="$recipe->picture"/>
     </div>
-    <x-shared.recipe-title :recipe="$recipe"/>
     <x-shared.recipe-description :recipe="$recipe"/>
 </x-module-container>
 

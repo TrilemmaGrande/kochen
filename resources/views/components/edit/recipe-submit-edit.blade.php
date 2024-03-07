@@ -1,1 +1,1 @@
-<button type="submit">Rezept ändern</button>
+<button class="btn" type="submit">Rezept ändern</button>

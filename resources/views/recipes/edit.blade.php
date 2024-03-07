@@ -11,6 +11,7 @@
         <div class="recipe-picture-container">
             <x-edit.recipe-picture :picture="$recipe->picture" />
         </div>
+        <x-edit.recipe-picture-input/>
     </x-module-container>
 
     <x-module-container>
@@ -36,7 +37,5 @@
     <x-module-container>
         <x-edit.recipe-submit-edit />    
     </x-module-container>
-            
-
 </form>
 @endsection

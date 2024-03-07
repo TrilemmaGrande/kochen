@@ -3,5 +3,5 @@
     @csrf
     Anzahl Portionen:
     <input type="number" min="1" name="portions" value={{(float)$portions}}>
-    <button type="submit">Berechnen</button>
+    <button class="btn" type="submit">Berechnen</button>
 </form>
