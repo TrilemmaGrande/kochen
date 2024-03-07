@@ -2,9 +2,13 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    margin: 2px;
     color: #39739d;
+    margin: 2px;
+}
 
+html{
+    margin:0;
+    height:100%
 }
 
 .page-container{
@@ -25,7 +29,7 @@
   line-height: 1.15385;
   margin: 0;
   outline: none;
-  padding: 8px .8em;
+  padding: 4px .8em;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -142,10 +146,11 @@ div.page-title>a:hover {
 .card-list {
     display: grid; 
     grid-template-columns: repeat(auto-fill ,minmax(25rem, 1fr));
+    gap: 1rem;
 }
 
 .card-list>.module-container {
-    margin-top: 0;
+    margin: 0;
     display:flex;
     flex-direction: column;
 }
@@ -194,6 +199,7 @@ div.page-title>a:hover {
 }
 
 .module-container {
+    margin-top:1rem;
     display:flex;
     flex-direction: column;
     padding: 10px;

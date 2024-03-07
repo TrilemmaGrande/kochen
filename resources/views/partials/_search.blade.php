@@ -1,4 +1,4 @@
 <form action="/">
     <input type="text" name="search" placeholder="Rezepte suchen..." />
-    <button type="submit">Suchen</button>
+    <button class="btn" type="submit">Suchen</button>
 </form>
