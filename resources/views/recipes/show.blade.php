@@ -11,7 +11,7 @@
 </x-module-container>
 
 <x-module-container>
-    <x-show.recipe-portions :recipe="$recipe" :portions="$portions"/>
+    <x-show.recipe-portions :portions="$portions"/>
 </x-module-container>
 
 <x-module-container>
