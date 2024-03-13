@@ -18,6 +18,8 @@ use App\Http\Controllers\RecipeController;
 
 Route::get('/recipes/create', [RecipeController::class, 'create']);
 
+Route::get('/recipes/renderIngredientRow/{position}', [RecipeController::class, 'renderIngredientRow']);
+
 Route::get('/recipes/edit/{recipe}',  [RecipeController::class, 'edit']);
 
 Route::post('/recipes/save-image',  [RecipeController::class, 'storeImage']);
@@ -30,4 +32,5 @@ Route::get('/recipes/{recipe}',  [RecipeController::class, 'show']);
 
 Route::post('/recipes',  [RecipeController::class, 'store']);
 
+Route::get('/', [RecipeController::class, 'index']);
 Route::get('/', [RecipeController::class, 'index']);

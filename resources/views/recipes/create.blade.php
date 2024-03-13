@@ -21,6 +21,9 @@
         <label for="ingredients">Zutaten</label>
         <?php $position = 1?>
         <x-create.recipe-ingredients :position="$position"/>
+        <x-create.recipe-ingredients :position="$position+1"/>
+        <x-create.recipe-ingredients :position="$position+2"/>
+        <div class="btn" onclick="addIngredientRow(this)">+</div>
     </x-module-container>
     
     <x-module-container>

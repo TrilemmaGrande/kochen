@@ -23,6 +23,13 @@ class RecipeController extends Controller
         return view('recipes.create');
     }
 
+    public function renderIngredientRow(Request $request){
+        $position = request('position');
+        $html = view('components.create.recipe-ingredients', compact('position'))->render();
+
+        return response()->json(['html' => $html]);
+    }
+
     public function storeImage(Request $request)
     {        
          $uploadedFile = $request->file('file');
@@ -56,8 +63,8 @@ class RecipeController extends Controller
         }
 
         $recipe = Recipe::create($formFields);
-        $this->UpdateAndCreateTags($tagsCsv, $recipe);
-        $this->UpdateAndCreateIngredients($ingredients, $recipe);
+        $this->updateAndCreateTags($tagsCsv, $recipe);
+        $this->updateAndCreateIngredients($ingredients, $recipe);
 
         return redirect('/')->with('message', 'Rezept erfolgreich erstellt!');
     }
@@ -106,8 +113,8 @@ class RecipeController extends Controller
             $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
         }
         $recipe->update($formFields);
-        $this->UpdateAndCreateTags($tagsCsv, $recipe);
-        $this->UpdateAndCreateIngredients($ingredients, $recipe);
+        $this->updateAndCreateTags($tagsCsv, $recipe);
+        $this->updateAndCreateIngredients($ingredients, $recipe);
 
         return back()->with('message', 'Rezept erfolgreich geändert!');
     }
@@ -121,7 +128,7 @@ class RecipeController extends Controller
         return redirect('/')->with('message', 'Rezept wurde gelöscht!');
     }
 
-    private function UpdateAndCreateTags(String $tagsCsv, Recipe $recipe)
+    private function updateAndCreateTags(String $tagsCsv, Recipe $recipe)
     {
         // convert tags to array
         $tagNames = explode(',', $tagsCsv);
@@ -134,7 +141,7 @@ class RecipeController extends Controller
         $recipe->tags()->sync($tagIds);
     }
 
-    private function UpdateAndCreateIngredients(array $ingredients, Recipe $recipe)
+    private function updateAndCreateIngredients(array $ingredients, Recipe $recipe)
     {
         $recipe->ingredients()->detach();
         foreach ($ingredients['ingredients'] as $position => $ingredient) {

@@ -1,6 +1,6 @@
 @props(['ingredient','position'])
 
-{{$position }}
+<div name="ingredientRow">
 <input type="text" name="ingredients[{{ $position }}][quantity]" value="{{ old('ingredient.'.$position.'.quantity') ?? $ingredient->pivot->quantity }}">
 @error('ingredients.'.$position.'.quantity')
 <p>Numerischer Wert erforderlich!</p>
@@ -16,3 +16,4 @@
 </select>
 
 <input type="text" name="ingredients[{{ $position }}][name]" value="{{ old('ingredients.'.$position.'.name') ?? $ingredient->name }}">
+<button class="btn" onclick="removeIngredientRow(this)">-</button>

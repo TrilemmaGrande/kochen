@@ -1,5 +1,6 @@
 @props(['ingredient','portions'])    
 
+<div class="recipe-ingredient-row">
 <?php $quantity = $ingredient->pivot->quantity > 0 ? number_format((float)$ingredient->pivot->quantity * (float)$portions,2,",",".") : "" ?>
 <div name="quantity" data-quantity="{{ $quantity }}" >
     {{ $quantity }} 
@@ -9,4 +10,5 @@
 </div>
 <div>
     {{$ingredient->name}}
+</div>
 </div>

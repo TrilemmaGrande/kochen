@@ -28,6 +28,7 @@
     
     <x-module-container>
         <x-edit.recipe-ingredients :ingredients="$recipe->ingredients" />
+            <div class="btn" onclick="addIngredientRow(this)">+</div>
     </x-module-container>
     
     <x-module-container>
