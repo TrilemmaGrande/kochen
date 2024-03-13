@@ -17,8 +17,22 @@ function addIngredientRow(btn) {
     xhr.send();
 
     btn.insertAdjacentElement("beforebegin", newIngredientRow);
+    updatePositions();
 }
 
 function removeIngredientRow(ingredientRow) {
     ingredientRow.parentElement.remove();
+    updatePositions();
+}
+
+function updatePositions() {
+    let ingredientRows = document.querySelectorAll('[name=ingredientRow]');
+    ingredientRows.forEach((row, index) => {
+        row.dataset.position = index + 1;
+        let inputs = row.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            let name = input.getAttribute('name');
+            input.setAttribute('name', name.replace(/\[\d+\]/, `[${index+1}]`));
+        });
+    });
 }
