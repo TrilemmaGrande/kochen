@@ -196,10 +196,13 @@ div.page-title>a:hover {
 .recipe-ingredient-row {
     display: grid; 
     grid-template-columns: repeat(auto-fill ,minmax(3rem, 1fr));
-    gap: 2em;
+    gap: 1em;
 }
 .recipe-ingredient-row > div[name="quantity"]{
-    text-align: end;
+    text-align: right;
+}
+.recipe-ingredient-row > div[name="unit"]{
+    text-align: left;
 }
 
 .pagination {

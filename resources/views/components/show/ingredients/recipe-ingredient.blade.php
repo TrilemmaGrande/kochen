@@ -10,7 +10,8 @@
     ?>
 <div name="quantity" data-quantity="{{ $quantity }}" >
     {{ $quantity }} 
-
+</div>
+<div name="unit">    
     {{$ingredient->pivot->unit->name ?? ""}} 
 </div>
 <div>
